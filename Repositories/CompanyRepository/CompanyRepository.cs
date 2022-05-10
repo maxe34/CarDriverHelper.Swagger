@@ -8,17 +8,17 @@ public class CompanyRepository : Repository<Company>, ICompanyRepository
     {
     }
 
-    public Company UpdateCompanyById(int companyId, CompanyViewModel companyViewModel)
+    public Company UpdateCompanyById(int companyId, Company company)
     {
-        var company = GetData().FirstOrDefault(c => c.Id == companyId);
+        var myCompany = GetData().FirstOrDefault(c => c.Id == companyId);
 
-        if (company != null)
+        if (myCompany != null)
         {
-            company.Name = companyViewModel.Name;
-            company.Rate = companyViewModel.Rate;
+            myCompany.Name = company.Name;
+            myCompany.Rate = company.Rate;
         }
         
         SaveChanges();
-        return company!;
+        return myCompany!;
     }
 }

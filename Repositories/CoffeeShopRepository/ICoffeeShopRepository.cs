@@ -4,5 +4,5 @@ namespace Repositories.CoffeeShopRepository;
 
 public interface ICoffeeShopRepository : IRepository<CoffeeShop>
 {
-    public CoffeeShop UpdateCoffeeShopById(int coffeeId, CoffeeShopViewModel coffeeShopViewModel);
+    public CoffeeShop UpdateCoffeeShopById(int coffeeId,  CoffeeShop coffeeShop);
 }

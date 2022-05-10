@@ -1,7 +1,9 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Services.CompanyService;
+using Services.CompanyService.Models;
 
-namespace CarDriverHelper.ClassLibrary.Controllers;
+namespace CarDriveHelper.Swagger.Controllers;
 
 [Route("Company")]
 public class CompanyController : Controller
@@ -21,11 +23,11 @@ public class CompanyController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddCompany([FromBody] CompanyViewModel companyViewModel)
+    public IActionResult AddCompany([FromBody] CompanyModel companyModel)
     {
         try
         {
-            _companyService.AddCompany(companyViewModel);
+            _companyService.AddCompany(companyModel);
             return Ok();
         }
         catch (Exception e)
@@ -35,9 +37,9 @@ public class CompanyController : Controller
     }
 
     [HttpPut]
-    public IActionResult UpdateCompany(int id, [FromBody] CompanyViewModel companyViewModel)
+    public IActionResult UpdateCompany(int id, [FromBody] CompanyModel companyModel)
     {
-        var updatedCompany = _companyService.UpdateCompanyById(id, companyViewModel);
+        var updatedCompany = _companyService.UpdateCompanyById(id, companyModel);
         return Ok(updatedCompany);
     }
 
@@ -54,3 +56,4 @@ public class CompanyController : Controller
             return BadRequest($"{ex.Message} sorry");
         }
     }
+}

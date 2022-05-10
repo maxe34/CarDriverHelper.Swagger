@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Services.CoffeeShopService;
+using Services.CoffeeShopService.Models;
 
-namespace CarDriverHelper.ClassLibrary.Controllers;
+namespace CarDriveHelper.Swagger.Controllers;
 [Route("coffee_shop")]
 public class CoffeeShopController : Controller
 {
@@ -19,16 +21,16 @@ public class CoffeeShopController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddCoffeeShop([FromBody] CoffeeShopViewModel coffeeShopViewModel)
+    public IActionResult AddCoffeeShop([FromBody] CoffeeShopModel coffeeShopModel)
     {
-        _coffeeShopService.AddCoffeeShop(coffeeShopViewModel);
+        _coffeeShopService.AddCoffeeShop(coffeeShopModel);
         return Ok();
     }
 
     [HttpPut]
-    public IActionResult UpdateCoffeeShop(int id, [FromBody] CoffeeShopViewModel coffeeShopViewModel)
+    public IActionResult UpdateCoffeeShop(int id, [FromBody] CoffeeShopModel coffeeShopModel )
     {
-        var updatedCoffeeShop = _coffeeShopService.UpdateCoffeeShopById(id, coffeeShopViewModel);
+        var updatedCoffeeShop = _coffeeShopService.UpdateCoffeeShopById(id, coffeeShopModel);
         return Ok(updatedCoffeeShop);
     }
 

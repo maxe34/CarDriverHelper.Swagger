@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Services.GasStationService;
+using Services.GasStationService.Models;
 
-namespace CarDriverHelper.ClassLibrary.Controllers;
+namespace CarDriveHelper.Swagger.Controllers;
 
 [Route("gas_station")]
 public class GasStationControllers : Controller
@@ -27,9 +29,9 @@ public class GasStationControllers : Controller
     }
 
     [HttpPost]
-    public IActionResult AddGasStation([FromBody] GasStationViewModel gasStationViewModel)
+    public IActionResult AddGasStation([FromBody] GasStationModel gasStationModel)
     {
-        _gasStationService.AddGasStation(gasStationViewModel);
+        _gasStationService.AddGasStation(gasStationModel);
         return Ok();
     }
 

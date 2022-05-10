@@ -8,14 +8,14 @@ public class CoffeeShopRepository : Repository<CoffeeShop>, ICoffeeShopRepositor
     {
     }
 
-    public CoffeeShop UpdateCoffeeShopById(int coffeeId, CoffeeShopViewModel coffeeShopViewModel)
+    public CoffeeShop UpdateCoffeeShopById(int coffeeId, CoffeeShop coffeeShop)
     {
         var coffee = GetData().FirstOrDefault(c => c.Id == coffeeId);
 
         if (coffee != null)
         {
-            coffee.Name = coffeeShopViewModel.Name;
-            coffee.Rate = coffeeShopViewModel.Rate;
+            coffee.Name = coffeeShop.Name;
+            coffee.Rate = coffeeShop.Rate;
         }
         
         SaveChanges();

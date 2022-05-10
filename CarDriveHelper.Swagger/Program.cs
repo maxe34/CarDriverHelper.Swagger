@@ -1,4 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Repositories;
+using Repositories.CoffeeShopRepository;
+using Repositories.CompanyRepository;
+using Repositories.GasStationRepository;
+using Services.CoffeeShopService;
+using Services.CompanyService;
+using Services.GasStationService;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
