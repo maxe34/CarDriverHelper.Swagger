@@ -1,8 +1,9 @@
+using CarDriverHelper.Services.CoffeeShopService;
+using CarDriverHelper.Services.CoffeeShopService.Models;
 using Microsoft.AspNetCore.Mvc;
-using Services.CoffeeShopService;
-using Services.CoffeeShopService.Models;
 
 namespace CarDriveHelper.Swagger.Controllers;
+
 [Route("coffee_shop")]
 public class CoffeeShopController : Controller
 {
@@ -28,14 +29,14 @@ public class CoffeeShopController : Controller
     }
 
     [HttpPut]
-    public IActionResult UpdateCoffeeShop(int id, [FromBody] CoffeeShopModel coffeeShopModel )
+    public IActionResult UpdateCoffeeShop(Guid id, [FromBody] CoffeeShopModel coffeeShopModel)
     {
         var updatedCoffeeShop = _coffeeShopService.UpdateCoffeeShopById(id, coffeeShopModel);
         return Ok(updatedCoffeeShop);
     }
 
     [HttpDelete]
-    public IActionResult DeleteCoffeeShopById(int id)
+    public IActionResult DeleteCoffeeShopById(Guid id)
     {
         try
         {

@@ -1,7 +1,6 @@
-
+using CarDriverHelper.Services.CompanyService;
+using CarDriverHelper.Services.CompanyService.Models;
 using Microsoft.AspNetCore.Mvc;
-using Services.CompanyService;
-using Services.CompanyService.Models;
 
 namespace CarDriveHelper.Swagger.Controllers;
 
@@ -37,14 +36,14 @@ public class CompanyController : Controller
     }
 
     [HttpPut]
-    public IActionResult UpdateCompany(int id, [FromBody] CompanyModel companyModel)
+    public IActionResult UpdateCompany(Guid id, [FromBody] CompanyModel companyModel)
     {
         var updatedCompany = _companyService.UpdateCompanyById(id, companyModel);
         return Ok(updatedCompany);
     }
 
     [HttpDelete]
-    public IActionResult DeleteCompanyById(int id)
+    public IActionResult DeleteCompanyById(Guid id)
     {
         try
         {

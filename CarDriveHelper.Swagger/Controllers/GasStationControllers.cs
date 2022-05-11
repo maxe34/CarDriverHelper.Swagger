@@ -1,6 +1,6 @@
+using CarDriverHelper.Services.GasStationService;
+using CarDriverHelper.Services.GasStationService.Models;
 using Microsoft.AspNetCore.Mvc;
-using Services.GasStationService;
-using Services.GasStationService.Models;
 
 namespace CarDriveHelper.Swagger.Controllers;
 
@@ -22,7 +22,7 @@ public class GasStationControllers : Controller
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetStationById(int id)
+    public IActionResult GetStationById(Guid id)
     {
         var station = _gasStationService.GetStationWithCompanyCoffeeShopCarWashById(id);
         return Ok(station);
@@ -36,7 +36,7 @@ public class GasStationControllers : Controller
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteGasStationById(int id)
+    public IActionResult DeleteGasStationById(Guid id)
     {
         _gasStationService.DeleteGasStationById(id);
         return Ok();

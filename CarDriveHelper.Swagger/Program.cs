@@ -1,11 +1,12 @@
+using CarDriverHelper.Repositories;
+using CarDriverHelper.Repositories.CustomRepositories.CoffeeShopRepository;
+using CarDriverHelper.Repositories.CustomRepositories.CompanyRepository;
+using CarDriverHelper.Repositories.CustomRepositories.GasStationRepository;
+using CarDriverHelper.Services.CoffeeShopService;
+using CarDriverHelper.Services.CompanyService;
+using CarDriverHelper.Services.GasStationService;
 using Microsoft.EntityFrameworkCore;
-using Repositories;
-using Repositories.CoffeeShopRepository;
-using Repositories.CompanyRepository;
-using Repositories.GasStationRepository;
-using Services.CoffeeShopService;
-using Services.CompanyService;
-using Services.GasStationService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
@@ -38,7 +39,5 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
-// app.MapGet("/", () => "Hello World!");
 
 app.Run();
