@@ -17,20 +17,24 @@ public class CoffeeShopService : ICoffeeShopService
     public void AddCoffeeShop(CoffeeShopModel coffeeShopModel)
     {
         var myCoffeeShop = coffeeShopModel.Adapt<CoffeeShop>();
-        
+
         _coffeeShopRepository.Add(myCoffeeShop);
     }
 
     public IQueryable<CoffeeShop> GetAllCoffeeShops()
     {
-        
         return _coffeeShopRepository.GetAll();
+    }
+
+    public CoffeeShopModel? GetCoffeeShopById(Guid id)
+    {
+        return _coffeeShopRepository.Get(id)!.Adapt<CoffeeShopModel>();
     }
 
     public CoffeeShop UpdateCoffeeShopById(Guid coffeeShopId, CoffeeShopModel coffeeShopModel)
     {
         var coffeeShop = coffeeShopModel.Adapt<CoffeeShop>();
-        
+
         return _coffeeShopRepository.UpdateCoffeeShopById(coffeeShopId, coffeeShop);
     }
 

@@ -21,6 +21,13 @@ public class CoffeeShopController : Controller
         return Ok(allCoffeeShops);
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetCoffeeShopById(Guid id)
+    {
+        var coffeeShop = _coffeeShopService.GetCoffeeShopById(id);
+        return Ok(coffeeShop);
+    }
+
     [HttpPost]
     public IActionResult AddCoffeeShop([FromBody] CoffeeShopModel coffeeShopModel)
     {
