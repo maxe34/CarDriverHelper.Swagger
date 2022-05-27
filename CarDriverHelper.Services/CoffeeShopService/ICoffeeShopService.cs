@@ -1,5 +1,6 @@
 using CarDriverHelper.Repositories.Entities;
 using CarDriverHelper.Services.CoffeeShopService.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarDriverHelper.Services.CoffeeShopService;
 
@@ -10,4 +11,6 @@ public interface ICoffeeShopService
     public CoffeeShopModel? GetCoffeeShopById(Guid id);
     public CoffeeShop UpdateCoffeeShopById(Guid coffeeShopId, CoffeeShopModel coffeeShopModel);
     public void DeleteCoffeeShopById(Guid coffeeShopId);
+    public IList<CoffeeShopModel> GetList();
+
 }

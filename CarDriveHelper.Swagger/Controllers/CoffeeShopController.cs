@@ -14,18 +14,25 @@ public class CoffeeShopController : Controller
         _coffeeShopService = coffeeShopService;
     }
 
-    [HttpGet]
-    public IActionResult GetAllCoffeeShops()
-    {
-        var allCoffeeShops = _coffeeShopService.GetAllCoffeeShops();
-        return Ok(allCoffeeShops);
-    }
+    // [HttpGet]
+    // public IActionResult GetAllCoffeeShops()
+    // {
+    //     var allCoffeeShops = _coffeeShopService.GetAllCoffeeShops();
+    //     return Ok(allCoffeeShops);
+    // }
 
     [HttpGet("{id}")]
     public IActionResult GetCoffeeShopById(Guid id)
     {
         var coffeeShop = _coffeeShopService.GetCoffeeShopById(id);
         return Ok(coffeeShop);
+    }
+
+    [HttpGet("")]
+    public IActionResult GetList()
+    {
+        var list = _coffeeShopService.GetList();
+        return Ok(list);
     }
 
     [HttpPost]

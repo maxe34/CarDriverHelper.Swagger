@@ -2,6 +2,7 @@ using CarDriverHelper.Repositories.CustomRepositories.CoffeeShopRepository;
 using CarDriverHelper.Repositories.Entities;
 using CarDriverHelper.Services.CoffeeShopService.Models;
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarDriverHelper.Services.CoffeeShopService;
 
@@ -24,6 +25,24 @@ public class CoffeeShopService : ICoffeeShopService
     public IQueryable<CoffeeShop> GetAllCoffeeShops()
     {
         return _coffeeShopRepository.GetAll();
+    }
+
+    public IList<CoffeeShopModel> GetList()
+    {
+        var myShops = _coffeeShopRepository.GetAll().ToList();
+        // if (!string.IsNullOrEmpty(searchQuery))
+        // {
+        //     myShops = _coffeeShopRepository.GetAll().ToList()
+        //         .Where(s => s.Name.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        // }
+        
+        var myShopsModel = new List<CoffeeShopModel>();
+        foreach (var shop in myShops)
+        {
+            myShopsModel.Add(shop.Adapt<CoffeeShopModel>());
+        }
+
+        return myShopsModel;
     }
 
     public CoffeeShopModel? GetCoffeeShopById(Guid id)
