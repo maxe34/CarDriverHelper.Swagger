@@ -5,38 +5,38 @@ using CarDriverHelper.Repositories.CustomRepositories.GasStationRepository;
 using CarDriverHelper.Services.CoffeeShopService;
 using CarDriverHelper.Services.CompanyService;
 using CarDriverHelper.Services.GasStationService;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
-var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .Build();
+var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
-builder.Services.AddDbContext<AppDbContext>(options => { options.UseSqlServer(connectionString); });
-builder.Services.AddScoped<IGasStationRepository, GasStationRepository>();
-builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-builder.Services.AddScoped<ICoffeeShopRepository, CoffeeShopRepository>();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddTransient<IGasStationService, GasStationService>();
-builder.Services.AddTransient<ICompanyService, CompanyService>();
-builder.Services.AddTransient<ICoffeeShopService, CoffeeShopService>();
-builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
+services.AddControllers();
+services.AddDbContext<AppDbContext>(options => { options.UseSqlServer(connectionString); });
+services.AddScoped<IGasStationRepository, GasStationRepository>();
+services.AddScoped<ICompanyRepository, CompanyRepository>();
+services.AddScoped<ICoffeeShopRepository, CoffeeShopRepository>();
+services.AddEndpointsApiExplorer();
+services.AddTransient<IGasStationService, GasStationService>();
+services.AddTransient<ICompanyService, CompanyService>();
+services.AddTransient<ICoffeeShopService, CoffeeShopService>();
+services.AddSwaggerGen();
+
+services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy  =>
+    options.AddPolicy("AllowSetOrigins",
+        policy =>
         {
-            policy
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
+            policy.AllowAnyOrigin();
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
         });
 });
+services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
+services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -50,9 +50,14 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
+//app.UseHttpsRedirection();
 app.MapControllers();
-app.UseCors(MyAllowSpecificOrigins);
-
+app.UseRouting();
+app.UseCors("AllowSetOrigins");
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHealthChecks("/health");
+});
 app.Run();

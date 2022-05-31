@@ -27,7 +27,7 @@ public class CoffeeShopService : ICoffeeShopService
         return _coffeeShopRepository.GetAll();
     }
 
-    public IList<CoffeeShopModel> GetList()
+    public CoffeeFilterResponse<CoffeeShopModel> GetList()
     {
         var myShops = _coffeeShopRepository.GetAll().ToList();
         // if (!string.IsNullOrEmpty(searchQuery))
@@ -36,13 +36,14 @@ public class CoffeeShopService : ICoffeeShopService
         //         .Where(s => s.Name.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).ToList();
         // }
         
-        var myShopsModel = new List<CoffeeShopModel>();
-        foreach (var shop in myShops)
-        {
-            myShopsModel.Add(shop.Adapt<CoffeeShopModel>());
-        }
+        var myShopsModel = myShops.Select(shop => shop.Adapt<CoffeeShopModel>()).ToList();
 
-        return myShopsModel;
+        var myResponse = new CoffeeFilterResponse<CoffeeShopModel>
+        {
+            Items = myShopsModel,
+            TotalCount = myShopsModel.Count
+        };
+        return myResponse;
     }
 
     public CoffeeShopModel? GetCoffeeShopById(Guid id)

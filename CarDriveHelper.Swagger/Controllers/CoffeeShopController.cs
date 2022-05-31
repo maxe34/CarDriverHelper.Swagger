@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarDriveHelper.Swagger.Controllers;
 
-[Route("coffee_shop")]
-public class CoffeeShopController : Controller
+[Route("api/[controller]")]
+[ApiController]
+public class CoffeeShopController : ControllerBase
 {
     private readonly ICoffeeShopService _coffeeShopService;
 
@@ -14,12 +15,12 @@ public class CoffeeShopController : Controller
         _coffeeShopService = coffeeShopService;
     }
 
-    // [HttpGet]
-    // public IActionResult GetAllCoffeeShops()
-    // {
-    //     var allCoffeeShops = _coffeeShopService.GetAllCoffeeShops();
-    //     return Ok(allCoffeeShops);
-    // }
+    [HttpGet]
+    public IActionResult GetAllCoffeeShops()
+    {
+        var allCoffeeShops = _coffeeShopService.GetAllCoffeeShops();
+        return Ok(allCoffeeShops);
+    }
 
     [HttpGet("{id}")]
     public IActionResult GetCoffeeShopById(Guid id)
@@ -28,7 +29,8 @@ public class CoffeeShopController : Controller
         return Ok(coffeeShop);
     }
 
-    [HttpGet("")]
+    [HttpGet()]
+    [Route("list")]
     public IActionResult GetList()
     {
         var list = _coffeeShopService.GetList();

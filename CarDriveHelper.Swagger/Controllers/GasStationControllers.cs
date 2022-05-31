@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarDriveHelper.Swagger.Controllers;
 
-[Route("gas_station")]
-public class GasStationControllers : Controller
+[Route("api/[controller]")]
+[ApiController]
+public class GasStationControllers : ControllerBase
 {
     private readonly IGasStationService _gasStationService;
 

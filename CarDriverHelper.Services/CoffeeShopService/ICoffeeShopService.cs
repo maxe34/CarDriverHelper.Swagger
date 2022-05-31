@@ -11,6 +11,6 @@ public interface ICoffeeShopService
     public CoffeeShopModel? GetCoffeeShopById(Guid id);
     public CoffeeShop UpdateCoffeeShopById(Guid coffeeShopId, CoffeeShopModel coffeeShopModel);
     public void DeleteCoffeeShopById(Guid coffeeShopId);
-    public IList<CoffeeShopModel> GetList();
+    public CoffeeFilterResponse<CoffeeShopModel> GetList();
 
 }
