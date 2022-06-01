@@ -21,6 +21,14 @@ public class GasStationControllers : ControllerBase
         var allStations = _gasStationService.GetAllStations();
         return Ok(allStations);
     }
+    
+    [HttpGet()]
+    [Route("list")]
+    public IActionResult GetList()
+    {
+        var list = _gasStationService.GetList();
+        return Ok(list);
+    }
 
     [HttpGet("{id}")]
     public IActionResult GetStationById(Guid id)

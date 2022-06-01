@@ -9,4 +9,6 @@ public interface IGasStationService
     public GasStation AddGasStation(GasStationModel gasStationModel);
     public void DeleteGasStationById(Guid stationId);
     public GasStationCompanyCoffeeModel? GetStationWithCompanyCoffeeShopCarWashById(Guid stationId);
+    public GasFilterResponse<GasStationModel> GetList();
+
 }

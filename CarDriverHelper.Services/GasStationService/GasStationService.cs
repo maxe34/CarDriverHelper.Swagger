@@ -45,6 +45,20 @@ public class GasStationService : IGasStationService
         return newModel;
     }
 
+    public GasFilterResponse<GasStationModel> GetList()
+    {
+        var myStations = _gasStationRepository.GetAll().ToList();
+
+        var myModels = myStations.Select(shop => shop.Adapt<GasStationModel>()).ToList();
+
+        var myResponse = new GasFilterResponse<GasStationModel>
+        {
+            Items = myModels,
+            TotalCount = myModels.Count
+        };
+        return myResponse;
+    }
+
     public GasStation AddGasStation(GasStationModel gasStationModel)
     {
         var gasStation = gasStationModel.Adapt<GasStation>();

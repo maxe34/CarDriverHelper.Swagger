@@ -1,6 +1,7 @@
 using CarDriverHelper.Repositories.CustomRepositories.CoffeeShopRepository;
 using CarDriverHelper.Repositories.Entities;
 using CarDriverHelper.Services.CoffeeShopService.Models;
+using CarDriverHelper.Services.Helper.Paging;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,20 +23,25 @@ public class CoffeeShopService : ICoffeeShopService
         _coffeeShopRepository.Add(myCoffeeShop);
     }
 
-    public IQueryable<CoffeeShop> GetAllCoffeeShops()
+    public IQueryable<CoffeeShopModel> GetAllCoffeeShops(int? pageNumber)
     {
-        return _coffeeShopRepository.GetAll();
+        var allShops = _coffeeShopRepository.GetAll();
+        var myShopsModel = allShops.Select(shop => shop.Adapt<CoffeeShopModel>());
+        
+        if (pageNumber != 0 && pageNumber is not null)
+        {
+            int pageSize = 5;
+            myShopsModel = PaginatedList<CoffeeShopModel>.Create(myShopsModel, pageNumber ?? 1, pageSize)
+                .AsQueryable();
+        }
+
+        return myShopsModel;
     }
 
     public CoffeeFilterResponse<CoffeeShopModel> GetList()
     {
         var myShops = _coffeeShopRepository.GetAll().ToList();
-        // if (!string.IsNullOrEmpty(searchQuery))
-        // {
-        //     myShops = _coffeeShopRepository.GetAll().ToList()
-        //         .Where(s => s.Name.Contains(searchQuery, StringComparison.CurrentCultureIgnoreCase)).ToList();
-        // }
-        
+
         var myShopsModel = myShops.Select(shop => shop.Adapt<CoffeeShopModel>()).ToList();
 
         var myResponse = new CoffeeFilterResponse<CoffeeShopModel>
