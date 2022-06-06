@@ -6,11 +6,11 @@ namespace CarDriveHelper.Swagger.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class GasStationControllers : ControllerBase
+public class GasStationController : ControllerBase
 {
     private readonly IGasStationService _gasStationService;
 
-    public GasStationControllers(IGasStationService gasStationService)
+    public GasStationController(IGasStationService gasStationService)
     {
         _gasStationService = gasStationService;
     }

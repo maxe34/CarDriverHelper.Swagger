@@ -16,9 +16,9 @@ public class CoffeeShopController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllCoffeeShops(int? pageIndex)
+    public IActionResult GetAllCoffeeShops()
     {
-        var allCoffeeShops = _coffeeShopService.GetAllCoffeeShops(pageIndex);
+        var allCoffeeShops = _coffeeShopService.GetAllCoffeeShops();
         return Ok(allCoffeeShops);
     }
 

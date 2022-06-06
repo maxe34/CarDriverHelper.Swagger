@@ -23,18 +23,11 @@ public class CoffeeShopService : ICoffeeShopService
         _coffeeShopRepository.Add(myCoffeeShop);
     }
 
-    public IQueryable<CoffeeShopModel> GetAllCoffeeShops(int? pageNumber)
+    public IQueryable<CoffeeShopModel> GetAllCoffeeShops()
     {
         var allShops = _coffeeShopRepository.GetAll();
         var myShopsModel = allShops.Select(shop => shop.Adapt<CoffeeShopModel>());
         
-        if (pageNumber != 0 && pageNumber is not null)
-        {
-            int pageSize = 5;
-            myShopsModel = PaginatedList<CoffeeShopModel>.Create(myShopsModel, pageNumber ?? 1, pageSize)
-                .AsQueryable();
-        }
-
         return myShopsModel;
     }
 
